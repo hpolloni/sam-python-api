@@ -56,10 +56,13 @@ if __name__ == '__main__':
     pdir = projectdir(args.projectName)
 
     log.info('Checking out project template into %s' % pdir)
-    sh('git archive --remote=%s @ | tar -t --exclude="pp" -C %s' % (PROJECT_REPO, pdir))
+    # TODO: use git archive
+    sh('git clone %s %s' % (PROJECT_REPO, pdir))
     os.rename(os.path.join(pdir, 'example'), os.path.join(pdir, args.projectName))
     log.info('Replacing templates')
     for dirpath, dirnames, files in os.walk(pdir):
+        if '.git' in dirpath:
+            continue
         for f in files:
             templateargs = {
                 'ProjectName': args.projectName,
