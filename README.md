@@ -15,9 +15,10 @@ Running it:
 
 # Using it
 ## Creating the project
-Download pp (checked in into this repo) and run:
+Download pp (checked-in into this repo) and run:
 
 ```bash
+$ wget https://raw.githubusercontent.com/hpolloni/sam-python-api/master/pp && chmod +x pp
 $ ./pp [projectName]
 ```
 Replace ```[projectName]``` with your project's name. The project name should follow the python module naming conventions (no '/' or '-').

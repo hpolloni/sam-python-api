@@ -65,6 +65,7 @@ if __name__ == '__main__':
     log.info('Checking out project template into %s' % pdir)
     sh('git clone --depth=1 %s %s' % (PROJECT_REPO, pdir))
     rm_fr(os.path.join(pdir, '.git'))
+    rm_fr(os.path.join(pdir, 'pp'))
     os.rename(os.path.join(pdir, 'example'), os.path.join(pdir, args.projectName))
     log.info('Replacing templates')
     for dirpath, dirnames, files in os.walk(pdir):
