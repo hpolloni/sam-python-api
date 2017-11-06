@@ -30,6 +30,13 @@ def gitemail():
 def projectdir(projectName):
     return os.path.join(os.getcwd(), projectName)
 
+def rm_fr(path):
+    import shutil
+    if os.path.isdir(path) and not os.path.islink(path):
+        shutil.rmtree(path)
+    elif os.path.exists(path):
+        os.remove(path)
+
 def templatereplace(filename, templateargs):
     with open(filename, 'r') as f:
         content = f.read()
@@ -56,13 +63,11 @@ if __name__ == '__main__':
     pdir = projectdir(args.projectName)
 
     log.info('Checking out project template into %s' % pdir)
-    # TODO: use git archive
-    sh('git clone %s %s' % (PROJECT_REPO, pdir))
+    sh('git clone --depth=1 %s %s' % (PROJECT_REPO, pdir))
+    rm_fr(os.path.join(pdir, '.git'))
     os.rename(os.path.join(pdir, 'example'), os.path.join(pdir, args.projectName))
     log.info('Replacing templates')
     for dirpath, dirnames, files in os.walk(pdir):
-        if '.git' in dirpath:
-            continue
         for f in files:
             templateargs = {
                 'ProjectName': args.projectName,

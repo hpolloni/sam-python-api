@@ -9,7 +9,50 @@ For pp:
 * Python3.6
 * Git
 
-For running:
-* SAM local (for runnin)
+Running it:
+* SAM local
 * Virtualenv
+
+# Using it
+## Creating the project
+Download pp (checked in into this repo) and run:
+
+```bash
+$ ./pp [projectName]
+```
+Replace ```[projectName]``` with your project's name. The project name should follow the python module naming conventions (no '/' or '-').
+
+For instance, if running ```./pp proj```. The directory structure looks like:
+```
+├── Makefile
+├── pp
+├── proj
+│   ├── handlers.py
+│   └── __init__.py
+├── README.md
+├── requirements.txt
+├── setup.cfg
+├── setup.py
+├── template.yml
+├── test-requirements.txt
+├── tests
+│   └── handler_integ_test.py
+└── VERSION
+```
+
+## Running local and integ tests
+In order to run it locally. You will need to create the python bundle.
+```bash
+$ make && make bundle
+```
+
+Running sam local should be as simple as:
+```bash
+$ make run-local
+```
+
+After that, you can run integration tests against local endpoint:
+```bash
+$ make integ-test
+```
 
